@@ -1,0 +1,22 @@
+{
+  "name": "my-vanilla-mongoose-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js", 
+  "scripts": {
+    "install:server": "npm install --prefix server",
+    "install:client": "npm install --prefix client",
+    "install:all": "npm install && npm run install:server && npm run install:client",
+    "dev:server": "npm run dev --prefix server",   
+    "dev:client": "npm run dev --prefix client",   
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"", 
+    "build:client": "npm run build --prefix client", 
+    "start": "npm start --prefix server"          
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
