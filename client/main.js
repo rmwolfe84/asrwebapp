@@ -1,5 +1,6 @@
 // In ./client/main.js
-import './style.css'; // Or your CSS entry point
+import './src/style.css'; // Or your CSS entry point
+import { ThemeManager } from './src/ui/styles/themes/ThemeManager.js';
 
 const app = document.querySelector('#app');
 app.innerHTML = `
@@ -19,7 +20,38 @@ const itemsList = document.querySelector('#items-list');
 const itemForm = document.querySelector('#item-form');
 const itemNameInput = document.querySelector('#item-name');
 const itemDescInput = document.querySelector('#item-desc');
+const themeManager = ThemeManager.getInstance();
 
+const lightBtn = document.getElementById('theme-light');
+const darkBtn = document.getElementById('theme-dark');
+const colorblindBtn = document.getElementById('theme-colorblind');
+const themeDisplay = document.getElementById('current-theme-display'); 
+
+// Update display initially (optional)
+if (themeDisplay) {
+    themeDisplay.textContent = themeManager.getCurrentTheme();
+}
+
+// Add event listeners that CALL the setTheme method on the instance
+if (lightBtn) {
+  lightBtn.addEventListener('click', () => {
+    themeManager.setTheme('light');
+    if (themeDisplay) themeDisplay.textContent = 'light';
+  });
+}
+if (darkBtn) {
+  darkBtn.addEventListener('click', () => {
+    themeManager.setTheme('dark');
+    if (themeDisplay) themeDisplay.textContent = 'dark';
+  });
+}
+if (colorblindBtn) {
+  colorblindBtn.addEventListener('click', () => {
+    themeManager.setTheme('colorblind');
+    if (themeDisplay) themeDisplay.textContent = 'colorblind';
+  });
+}
+console.log("App initialized, ThemeManager instance created.");
 // Function to fetch and display items
 async function fetchItems() {
   try {

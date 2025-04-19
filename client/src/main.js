@@ -2,6 +2,12 @@ import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.js'
+import { ThemeManager } from './src/ui/styles/themes/ThemeManager.js'; 
+import { initializeBlogSystem } from './src/blog/blog.js';
+
+const themeManager = ThemeManager.getInstance();
+
+initializeBlogSystem();
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -22,3 +28,4 @@ document.querySelector('#app').innerHTML = `
 `
 
 setupCounter(document.querySelector('#counter'))
+console.log("Main App Initialized");

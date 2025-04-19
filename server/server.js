@@ -35,6 +35,9 @@ if (process.env.NODE_ENV === 'production') {
 // --- End Production Setup ---
 
 
-const PORT = process.env.PORT || 3001; // Use port from .env or default to 3001
+const PORT = process.env.PORT || 3020; // Use port from .env or default to 3020
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => {
+  // Modified console.log
+  console.log(`Server listening at http://localhost:${PORT}`);
+});

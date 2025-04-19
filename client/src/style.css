@@ -1,96 +1,106 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* client/style.css */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Remove the original :root block with hardcoded colors */
+/* Remove the @media (prefers-color-scheme: light) block */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* --- Apply YOUR variables --- */
+
+/* Apply base font and background/text colors FROM your ThemeManager */
+body {
+  font-family: var(--font-family-secondary); /* Or --font-family-primary */
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  /* Keep layout stuff if desired, but positioning might change based on your app structure */
+  margin: 0;
+  /* display: flex; */ /* Often remove these defaults unless your root layout IS flex */
+  /* place-items: center; */
+  /* min-width: 320px; */ /* Usually okay */
+  min-height: 100vh;
+
+  /* Add base typography from variables */
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-normal);
+
+  /* Add default transitions if desired */
+  transition: background-color var(--transition-timing-normal) ease, color var(--transition-timing-normal) ease;
+
+  /* Remove default Vite font smoothing if using custom fonts extensively */
+  /* font-synthesis: none; */
+  /* text-rendering: optimizeLegibility; */
+  /* -webkit-font-smoothing: antialiased; */
+  /* -moz-osx-font-smoothing: grayscale; */
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  font-weight: var(--font-weight-medium); /* Use variable */
+  color: var(--color-text-link); /* Use variable */
+  text-decoration: none; /* Remove default 'inherit' */
+  transition: color var(--transition-timing-fast) ease;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-text-link-hover); /* Use variable */
+  text-decoration: underline;
+}
+/* Add focus styles */
+a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--border-radius-sm);
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: var(--font-size-4xl); /* Use variable */
+  line-height: var(--line-height-tight); /* Use variable */
+  font-weight: var(--font-weight-bold); /* Use variable */
+  color: var(--color-text-primary); /* Ensure color uses variable */
 }
 
+/* You might want a more specific container */
 #app {
-  max-width: 1280px;
+  max-width: var(--container-max-width); /* Use variable */
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: var(--spacing-8); /* Use variable */
+  text-align: center; /* Keep if desired */
 }
 
+/* Style buttons using variables */
+button {
+  border-radius: var(--border-radius-md); /* Use variable */
+  border: var(--border-width-1) solid transparent; /* Keep transparent or use border variable */
+  padding: var(--padding-button); /* Use variable */
+  font-size: var(--font-size-base); /* Use variable */
+  font-weight: var(--font-weight-medium); /* Use variable */
+  font-family: var(--font-family-primary); /* Use variable */
+  background-color: var(--color-button-primary-bg); /* Use variable */
+  color: var(--color-button-primary-text); /* Use variable */
+  cursor: pointer;
+  transition: border-color var(--transition-timing-fast) ease, background-color var(--transition-timing-fast) ease;
+  height: var(--button-height-md); /* Use variable */
+}
+button:hover {
+  /* Define hover state - might need to adjust based on theme */
+  background-color: var(--color-primary-light); /* Example */
+  /* border-color: var(--color-primary); */ /* Example */
+}
+body.dark-mode button:hover {
+  background-color: var(--color-primary-dark); /* Example */
+}
+
+button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+  border-color: transparent; /* Hide default border on focus if using outline */
+}
+
+/* Remove or adapt other default styles like .logo, .card, .read-the-docs
+   using your component structure and CSS variables */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+/* etc. */
