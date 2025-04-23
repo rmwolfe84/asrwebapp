@@ -7,16 +7,6 @@ import {
   animationKeyframes    // Name matches the export (include if you defined it)
 } from './themeVariables.js'; 
 
-// --- IMPORT THE VARIABLES ---
-// Make sure this path is exactly correct relative to this ThemeManager file
-import {
-  baseVars,             // Contains typography, spacing, layout, etc.
-  lightModeColors,      // Colors for :root (light mode)
-  darkModeColors,       // Colors for body.dark-mode
-  colorblindModeColors, // Colors for body.colorblind-mode
-  animationKeyframes    // Optional: if you defined animations in themeVariables.js
-} from './themeVariables.js'; // <-- ADJUST PATH AS NEEDED
-
 // Theme manager singleton (JavaScript Class)
 export class ThemeManager {
   // Static property to hold the single instance (ES Class field syntax)
@@ -122,8 +112,12 @@ export class ThemeManager {
     // Save the preference with the specific key
     localStorage.setItem('asr-theme-mode', mode);
 
-    // Optional: Dispatch a custom event if other parts of the app need to react
-    // document.dispatchEvent(new CustomEvent('themechanged', { detail: { mode: mode } }));
+    // Dispatch a custom event so other parts of the app can react
+    document.dispatchEvent(new CustomEvent('themechanged', { 
+      detail: { mode: mode },
+      bubbles: true,
+      composed: true  // Allow event to cross shadow DOM boundaries for web components
+    }));
   }
 
   // Helper method to get the currently active theme name
@@ -131,22 +125,3 @@ export class ThemeManager {
     return localStorage.getItem('asr-theme-mode') || 'light';
   }
 }
-
-// --- HOW TO USE IT ---
-// In your main entry file (e.g., client/main.js)
-
-// import { ThemeManager } from './path/to/ThemeManager.js';
-
-// // Initialize the theme manager (this runs the constructor logic the first time)
-// const themeManager = ThemeManager.getInstance();
-
-// // Example: Add buttons or dropdown to call setTheme
-// document.getElementById('set-dark-button')?.addEventListener('click', () => {
-//   themeManager.setTheme('dark');
-// });
-// document.getElementById('set-light-button')?.addEventListener('click', () => {
-//   themeManager.setTheme('light');
-// });
-// document.getElementById('set-colorblind-button')?.addEventListener('click', () => {
-//   themeManager.setTheme('colorblind');
-// });

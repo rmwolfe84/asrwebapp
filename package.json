@@ -21,6 +21,7 @@
     "svelte-seo": "^1.6.1"
   },
   "dependencies": {
-    "bootstrap": "^5.3.5"
+    "bootstrap": "^5.3.5",
+    "lit": "^3.3.0"
   }
 }

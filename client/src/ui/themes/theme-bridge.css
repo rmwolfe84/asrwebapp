@@ -1,0 +1,100 @@
+
+/* theme-bridge.css */
+/* This file bridges the gap between ThemeManager variables and the All Square Roofing/Lit component variables */
+
+:root {
+  /* Map ThemeManager variables to All Square Roofing CSS custom properties */
+  
+  /* Colors */
+  --primary-color: var(--color-primary, #7c7c7c);
+  --secondary-color: var(--color-secondary, #f5f5f5);
+  --accent-color: var(--color-accent, #be2026);
+  --text-color: var(--color-text-primary, #333333);
+  --light-text: var(--color-text-on-primary, #ffffff);
+  --dark-bg: var(--color-background-secondary, #2c2c2c);
+  --card-bg: var(--color-surface-primary, #ffffff);
+  --body-bg: var(--color-background-primary, #ffffff);
+  
+  /* Layout */
+  --header-height: 70px;
+  --section-padding: 80px 0;
+  --transition: all var(--transition-timing-normal, 0.3s) ease-in-out;
+  
+  /* Add more mappings as needed */
+}
+
+/* Dark mode mappings */
+body.dark-mode {
+  --primary-color: var(--color-primary, #a0a0a0);
+  --secondary-color: var(--color-secondary, #2c2c2c);
+  --text-color: var(--color-text-primary, #f5f5f5);
+  --card-bg: var(--color-surface-primary, #3a3a3a);
+  --body-bg: var(--color-background-primary, #1c1c1c);
+}
+
+/* Colorblind mode mappings */
+body.colorblind-mode {
+  --primary-color: var(--color-primary, #00429d);
+  --secondary-color: var(--color-secondary, #f5f5f5);
+  --accent-color: var(--color-accent, #ffd300);
+  --text-color: var(--color-text-primary, #333333);
+}
+
+/* Blog system specific styles */
+.blog-post-item {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.blog-post-title {
+  color: var(--accent-color);
+}
+
+.view-post {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+}
+
+.view-post:hover {
+  background-color: var(--accent-color);
+}
+
+/* Social media feed styles */
+.social-feed-container h3 {
+  color: var(--text-color);
+}
+
+.instagram-post, .facebook-post {
+  background-color: var(--card-bg);
+  transition: var(--transition);
+}
+
+/* Admin area styles */
+#admin-area {
+  background-color: var(--secondary-color);
+}
+
+#admin-area .section-title {
+  color: var(--primary-color);
+}
+
+.form-group label {
+  color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+}
+
+/* Base styles for body */
+body {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  font-family: var(--font-family-secondary, 'Roboto, Arial, sans-serif');
+  transition: background-color var(--transition-timing-normal, 0.3s) ease,
+              color var(--transition-timing-normal, 0.3s) ease;
+}

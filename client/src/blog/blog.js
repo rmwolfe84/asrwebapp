@@ -4,7 +4,7 @@
 // --- VERIFY THESE PATHS ARE CORRECT relative to blog.js ---
 import BlogForm from './BlogForm.js';
 import BlogPostList from './BlogPostList.js';
-import BlogPostDetail from './BlogPostDetail.js';
+import BlogPostDetail from './blog-post-detail.js';
 import ApprovalQueue from './ApprovalQueue.js';
 // import SearchBar from './components/blog/SearchBar.js'; // If used
 // import PaginationControls from './components/blog/PaginationControls.js'; // If used
