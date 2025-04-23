@@ -1,44 +1,67 @@
-<!-- Inside client/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Square Roofing - Professional Roofing Services</title>
+  <link rel="icon" type="image/svg+xml" href="/vite.svg">
+  <meta name="description" content="All Square Roofing provides professional roofing services including repairs, installations, and maintenance for residential and commercial properties.">
+  <!-- Preload the CSS -->
+  <link rel="stylesheet" href="/src/style.css">
+</head>
 <body>
   <div id="app">
-    <!-- Your existing app content (like the item list/form) -->
-    <h1>Vanilla Mongoose App / AI Blog</h1>
-    <!-- ... maybe your item list/form ... -->
-
-    <hr>
-
-    <!-- Add the Blog HTML Structure -->
-    <div class="container"> <!-- Or use your existing layout structure -->
-
-        <!-- Area for Blog Creation (Maybe Admin Only) -->
-        <section id="blog-creation-section" class="component-section">
-            <h2>Admin Area (Blog)</h2>
-            <div id="blog-form-container">
-                <!-- BlogForm component will render here -->
-            </div>
-             <div id="approval-queue-container">
-                 <!-- ApprovalQueue component will render here -->
-             </div>
-        </section>
-
-        <hr>
-
-        <!-- Area for Public Blog Viewing -->
-        <section id="blog-viewing-section" class="component-section">
-             <h2>Latest Posts</h2>
-             <!-- <div id="search-bar-container"></div> -->
-             <div id="blog-list-container">
-                 <!-- BlogPostList component will render here -->
-             </div>
-             <div id="blog-detail-container">
-                 <!-- BlogPostDetail component will render here -->
-             </div>
-             <!-- <div id="pagination-controls-container"></div> -->
-        </section>
-
-    </div> <!-- End container -->
-
-    <!-- Add the Blog Post Template -->
+    <!-- Header component -->
+    <app-header></app-header>
+    
+    <!-- Main content -->
+    <main>
+      <!-- Hero section -->
+      <hero-banner></hero-banner>
+      
+      <!-- About section -->
+      <about-section></about-section>
+      
+      <!-- Services section -->
+      <services-section></services-section>
+      
+      <!-- Call to action section -->
+      <cta-section></cta-section>
+      
+      <!-- Testimonials section -->
+      <testimonials-section></testimonials-section>
+      
+      <!-- Blog section -->
+      <blog-section></blog-section>
+      
+      <!-- Contact section -->
+      <contact-section></contact-section>
+    </main>
+    
+    <!-- Footer component -->
+    <app-footer></app-footer>
+    
+    <!-- Theme toggle component -->
+    <theme-toggle></theme-toggle>
+    
+    <!-- Blog container ids for initialization -->
+    <div id="blog-containers" style="display: none;">
+      <div id="blog-form-container"></div>
+      <div id="approval-queue-container"></div>
+      <div id="blog-list-container"></div>
+      <div id="blog-detail-container"></div>
+    </div>
+    
+    <!-- Admin area (hidden by default) -->
+    <div id="admin-area" style="display: none;">
+      <section class="admin-section container">
+        <h2>Admin Area</h2>
+        <div id="admin-blog-form-container"></div>
+        <div id="admin-approval-queue-container"></div>
+      </section>
+    </div>
+    
+    <!-- Blog post template -->
     <template id="blog-post-template">
       <div class="blog-post-item">
         <h3 class="blog-post-title"></h3>
@@ -46,9 +69,9 @@
         <button class="button view-post">View Full Post</button>
       </div>
     </template>
+  </div>
 
-  </div> <!-- End #app -->
-
-  <!-- This script tag should already be here, pointing to your main.js -->
+  <!-- Main script -->
   <script type="module" src="/main.js"></script>
 </body>
+</html>

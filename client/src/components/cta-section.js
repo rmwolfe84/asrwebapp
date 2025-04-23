@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { mainStyles } from '../styles/main-styles.js';
+import { mainStyles } from '../ui/styles/main-styles.js';
 
 export class CtaSection extends LitElement {
   static styles = [

@@ -1,4 +1,4 @@
-import { getPendingPostsAPI, approveDenyPostAPI } from './BlogService.js';
+import { getPendingPostsAPI, approveDenyPostAPI } from './blog-service.js';
 
 class ApprovalQueue {
     constructor(containerElement) {

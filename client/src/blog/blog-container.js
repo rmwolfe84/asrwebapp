@@ -1,6 +1,6 @@
-// src/components/blog/blog-container.js
+// src/blog/blog-container.js
 import { LitElement, html, css } from 'lit';
-import { mainStyles } from '../../styles/main-styles.js';
+import { mainStyles } from '../ui/styles/main-styles.js';
 import './blog-post-list.js';
 import './blog-post-detail.js';
 

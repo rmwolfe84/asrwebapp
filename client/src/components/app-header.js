@@ -149,6 +149,7 @@ export class AppHeader extends LitElement {
               <li><a href="#about" @click="${() => this.mobileMenuActive = false}">About</a></li>
               <li><a href="#services" @click="${() => this.mobileMenuActive = false}">Services</a></li>
               <li><a href="#testimonials" @click="${() => this.mobileMenuActive = false}">Testimonials</a></li>
+              <li><a href="#blog" @click="${() => this.mobileMenuActive = false}">Blog</a></li>
               <li><a href="#contact" @click="${() => this.mobileMenuActive = false}">Contact</a></li>
             </ul>
           </nav>

@@ -1,11 +1,12 @@
-// client/src/blog/blog.js (or wherever you placed it)
+// client/src/blog/blog.js
 
-// Use ES Module imports
-// --- VERIFY THESE PATHS ARE CORRECT relative to blog.js ---
-import BlogForm from './BlogForm.js';
-import BlogPostList from './BlogPostList.js';
-import BlogPostDetail from './blog-post-detail.js';
-import ApprovalQueue from './ApprovalQueue.js';
+// Use ES Module imports for traditional classes
+import BlogForm from './blog-form.js';
+import ApprovalQueue from './approval-queue.js';
+
+// Import Lit Element components by using their defined custom elements
+import './blog-post-list.js';
+import './blog-post-detail.js';
 // import SearchBar from './components/blog/SearchBar.js'; // If used
 // import PaginationControls from './components/blog/PaginationControls.js'; // If used
 
@@ -34,15 +35,19 @@ export function initializeBlogSystem() {
     }
 
     if (blogListContainer) {
-        blogPostList = new BlogPostList(blogListContainer);
+        // Create and append the lit-element component
+        blogPostList = document.createElement('blog-post-list');
+        blogListContainer.appendChild(blogPostList);
         console.log("BlogPostList initialized.");
     } else {
         console.warn("BlogPostList container not found.");
     }
 
     if (blogDetailContainer) {
-        blogPostDetail = new BlogPostDetail(blogDetailContainer);
-         console.log("BlogPostDetail initialized.");
+        // Create and append the lit-element component
+        blogPostDetail = document.createElement('blog-post-detail');
+        blogDetailContainer.appendChild(blogPostDetail);
+        console.log("BlogPostDetail initialized.");
     } else {
          console.warn("BlogPostDetail container not found.");
     }
@@ -67,7 +72,13 @@ export function initializeBlogSystem() {
         const postId = event.detail;
         console.log('Heard viewPostDetail event for:', postId);
         if (blogPostDetail) {
-            blogPostDetail.loadPost(postId);
+            // Call loadPost method on the web component
+            if (typeof blogPostDetail.loadPost === 'function') {
+                blogPostDetail.loadPost(postId);
+            } else {
+                // Alternative: set the postId property which will trigger the component to load
+                blogPostDetail.postId = postId;
+            }
         } else {
             console.warn("BlogPostDetail component not available to display post.");
         }
@@ -76,7 +87,18 @@ export function initializeBlogSystem() {
      document.addEventListener('postApproved', (event) => {
         console.log('Heard postApproved event:', event.detail);
          if (blogPostList) {
-            setTimeout(() => blogPostList.refresh(), 1000);
+            setTimeout(() => {
+                // Call refresh method if it exists
+                if (typeof blogPostList.refresh === 'function') {
+                    blogPostList.refresh();
+                } else {
+                    // Alternative: dispatch a custom event to the component
+                    blogPostList.dispatchEvent(new CustomEvent('refresh-posts', {
+                        bubbles: true,
+                        composed: true
+                    }));
+                }
+            }, 1000);
          }
     });
 

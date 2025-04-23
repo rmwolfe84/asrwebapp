@@ -1,5 +1,5 @@
 // website-root/js/components/blog/BlogForm.js
-import { generateBlogContentAPI, submitBlogPostAPI } from './BlogService.js'; // Use ES Module import
+import { generateBlogContentAPI, submitBlogPostAPI } from './blog-service.js'; // Use ES Module import
 
 class BlogForm {
     constructor(containerElement) {

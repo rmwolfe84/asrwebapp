@@ -1,6 +1,6 @@
 // src/components/blog/blog-post-detail.js
 import { LitElement, html, css } from 'lit';
-import { mainStyles } from '../../styles/main-styles.js';
+import { mainStyles } from '../ui/styles/main-styles.js';
 import { getPostByIdAPI } from './blog-service.js';
 
 export class BlogPostDetail extends LitElement {
