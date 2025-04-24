@@ -1,7 +1,13 @@
 import { LitElement, html, css } from 'lit';
 import { initializeScrollBehavior } from '../utils/scroll-utils.js';
+import { unregisterFromHashUpdates, scrollToSection } from '../utils/hash-handler.js';
 
 export class AppHeader extends LitElement {
+  static properties = {
+    mobileMenuActive: { type: Boolean },
+    activeSection: { type: String }
+  };
+
   static styles = css`
     :host {
       display: block;
@@ -59,7 +65,8 @@ export class AppHeader extends LitElement {
       transition: all 0.3s ease-in-out;
     }
 
-    nav ul li a:hover {
+    nav ul li a:hover,
+    nav ul li a.active {
       color: var(--accent-color, #be2026);
     }
 
@@ -74,7 +81,8 @@ export class AppHeader extends LitElement {
       transition: all 0.3s ease-in-out;
     }
 
-    nav ul li a:hover::after {
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
       width: 100%;
     }
 
@@ -124,6 +132,43 @@ export class AppHeader extends LitElement {
   constructor() {
     super();
     this.mobileMenuActive = false;
+    this.activeSection = window.location.hash ? window.location.hash.substring(1) : 'home';
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    // We don't initialize here as shadow DOM might not be ready
+  }
+  
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    // Unregister from hash updates when the component is removed
+    unregisterFromHashUpdates(this);
+  }
+  
+  firstUpdated() {
+    // Initialize after shadow DOM is ready
+    console.log('AppHeader shadow DOM ready, initializing scroll behavior');
+    initializeScrollBehavior(this);
+    
+    // Log all navigation links found
+    if (this.shadowRoot) {
+      const links = this.shadowRoot.querySelectorAll('a[href^="#"]');
+      console.log(`Found ${links.length} navigation links in header`);
+      links.forEach(link => console.log(`Link: ${link.getAttribute('href')}`));
+    }
+  }
+  
+  updated(changedProperties) {
+    if (changedProperties.has('activeSection')) {
+      console.log('Active section updated to:', this.activeSection);
+    }
+  }
+
+  // This method is called from hash-handler.js when a section is scrolled to
+  setActiveNavItem(sectionId) {
+    this.activeSection = sectionId;
+    this.requestUpdate();
   }
 
   toggleMobileMenu() {
@@ -131,26 +176,29 @@ export class AppHeader extends LitElement {
     this.requestUpdate();
   }
   
-  firstUpdated() {
-    // Initialize smooth scrolling for navigation links
-    initializeScrollBehavior(this);
+  handleNavClick(sectionId) {
+    this.mobileMenuActive = false;
+    this.activeSection = sectionId;
+    
+    // Directly trigger scrolling to the section
+    scrollToSection(sectionId);
   }
 
   render() {
     return html`
       <header>
         <div class="container header-container">
-          <a href="#" class="logo">
+          <a href="#home" class="logo">
             <img src="https://allsquareroofing.com/wp-content/uploads/2022/05/All-Square-Roofing-Final-Logo-01-2.png" alt="All Square Roofing Logo">
           </a>
           <nav>
             <ul class="${this.mobileMenuActive ? 'active' : ''}">
-              <li><a href="#home" @click="${() => this.mobileMenuActive = false}">Home</a></li>
-              <li><a href="#about" @click="${() => this.mobileMenuActive = false}">About</a></li>
-              <li><a href="#services" @click="${() => this.mobileMenuActive = false}">Services</a></li>
-              <li><a href="#testimonials" @click="${() => this.mobileMenuActive = false}">Testimonials</a></li>
-              <li><a href="#blog" @click="${() => this.mobileMenuActive = false}">Blog</a></li>
-              <li><a href="#contact" @click="${() => this.mobileMenuActive = false}">Contact</a></li>
+              <li><a href="#home" class="${this.activeSection === 'home' ? 'active' : ''}" @click="${() => this.handleNavClick('home')}">Home</a></li>
+              <li><a href="#about" class="${this.activeSection === 'about' ? 'active' : ''}" @click="${() => this.handleNavClick('about')}">About</a></li>
+              <li><a href="#services" class="${this.activeSection === 'services' ? 'active' : ''}" @click="${() => this.handleNavClick('services')}">Services</a></li>
+              <li><a href="#testimonials" class="${this.activeSection === 'testimonials' ? 'active' : ''}" @click="${() => this.handleNavClick('testimonials')}">Testimonials</a></li>
+              <li><a href="#blog" class="${this.activeSection === 'blog' ? 'active' : ''}" @click="${() => this.handleNavClick('blog')}">Blog</a></li>
+              <li><a href="#contact" class="${this.activeSection === 'contact' ? 'active' : ''}" @click="${() => this.handleNavClick('contact')}">Contact</a></li>
             </ul>
           </nav>
           <div class="mobile-menu-btn" @click="${this.toggleMobileMenu}">&#9776;</div>

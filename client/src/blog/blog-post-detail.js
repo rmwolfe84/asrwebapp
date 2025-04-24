@@ -71,12 +71,21 @@ export class BlogPostDetail extends LitElement {
     this.error = null;
   }
 
+  updated(changedProperties) {
+    super.updated(changedProperties);
+    
+    // Load the post if postId changes
+    if (changedProperties.has('postId') && this.postId) {
+      this.loadPost(this.postId);
+    }
+  }
+
   async loadPost(postId) {
     if (!postId) return;
     
-    this.postId = postId;
     this.loading = true;
     this.error = null;
+    this.post = null;
     this.requestUpdate();
     
     try {
@@ -143,10 +152,37 @@ export class BlogPostDetail extends LitElement {
   }
 
   renderContent() {
-    // This approach could be improved with a proper HTML sanitizer
-    const div = document.createElement('div');
-    div.innerHTML = this.post.content;
-    return div.textContent;
+    if (!this.post || !this.post.content) return '';
+    
+    // Simple markdown parser for headers, paragraphs, and lists
+    const markdownToHtml = (markdown) => {
+      if (!markdown) return '';
+      
+      // Convert headings (# Heading)
+      let html = markdown.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+      html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+      html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+      
+      // Convert paragraphs (blank lines between text)
+      html = html.replace(/^(?!<h[1-3]>)(.+)$/gm, '<p>$1</p>');
+      
+      // Convert lists (- item)
+      html = html.replace(/^- (.*$)/gm, '<li>$1</li>');
+      html = html.replace(/(<li>.*<\/li>\n)+/g, '<ul>$&</ul>');
+      
+      // Remove empty paragraphs
+      html = html.replace(/<p>\s*<\/p>/g, '');
+      
+      return html;
+    };
+
+    // Using unsafeHTML would be better here with a proper sanitizer,
+    // but for now we'll create a template element to parse the HTML
+    const template = document.createElement('template');
+    template.innerHTML = markdownToHtml(this.post.content);
+    
+    // Clone the content so we don't modify the original
+    return template.content.cloneNode(true);
   }
 }
 

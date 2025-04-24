@@ -73,5 +73,89 @@
 
   <!-- Main script -->
   <script type="module" src="/main.js"></script>
+  
+  <!-- Fallback hash navigation script -->
+  <script>
+    // Direct handler that works with custom elements
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Direct element handler loaded');
+      
+      // Add IDs to all section components
+      function addIdsToComponents() {
+        const componentMap = {
+          'hero-banner': 'home',
+          'about-section': 'about',
+          'services-section': 'services',
+          'testimonials-section': 'testimonials',
+          'blog-section': 'blog',
+          'contact-section': 'contact',
+          'cta-section': 'cta'
+        };
+        
+        // Add IDs to all components
+        Object.entries(componentMap).forEach(([tagName, id]) => {
+          const element = document.querySelector(tagName);
+          if (element && !element.id) {
+            element.id = id;
+            console.log(`[Direct] Added ID "${id}" to ${tagName}`);
+          }
+        });
+        
+        // Log all available sections
+        const sections = document.querySelectorAll('[id]');
+        console.log('[Direct] Available sections:', Array.from(sections).map(s => s.id));
+        
+        // Process hash after components are identified
+        if (window.location.hash) {
+          const hash = window.location.hash.substring(1);
+          processHash(hash);
+        }
+      }
+      
+      // Process a hash by scrolling to the element
+      function processHash(hash) {
+        console.log('[Direct] Processing hash:', hash);
+        
+        // Look for the target element
+        const targetElement = document.getElementById(hash);
+        if (targetElement) {
+          console.log('[Direct] Found target element:', hash);
+          
+          // Scroll to it
+          const headerHeight = 70;
+          const position = targetElement.offsetTop - headerHeight;
+          
+          window.scrollTo({
+            top: position,
+            behavior: 'auto'
+          });
+          
+          console.log('[Direct] Scrolled to position:', position);
+        }
+      }
+      
+      // Add element IDs after a delay to ensure components are initialized
+      setTimeout(addIdsToComponents, 1000);
+      
+      // Add click handlers to hash links in the main document
+      document.addEventListener('click', function(e) {
+        // Check if the clicked element is a hash link
+        if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+          const hash = e.target.getAttribute('href').substring(1);
+          console.log('[Direct] Hash link clicked:', hash);
+          processHash(hash);
+        }
+      });
+      
+      // Handle hash changes directly
+      window.addEventListener('hashchange', function() {
+        if (window.location.hash) {
+          const hash = window.location.hash.substring(1);
+          console.log('[Direct] Hash changed to:', hash);
+          processHash(hash);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

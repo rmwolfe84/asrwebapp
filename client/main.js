@@ -5,6 +5,10 @@ import './src/ui/themes/theme-bridge.css';
 
 // Import utilities
 import './src/utils/scroll-utils.js';
+// Import hash handler directly to make sure it's initialized early
+import { hashHandler } from './src/utils/hash-handler.js';
+// Import shadow DOM helper
+import { exposeShadowSections } from './src/utils/shadow-dom-helper.js';
 
 // Import roofing website components
 import './src/components/app-header.js';
@@ -31,6 +35,21 @@ const themeManager = ThemeManager.getInstance();
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
   console.log('All Square Roofing website initialized');
+  
+  // Ensure hash handler is initialized and log the current section
+  console.log('Hash handler initialized, current section:', hashHandler.currentSection);
+  
+  // Expose section IDs in shadow DOM components
+  exposeShadowSections();
+  
+  // Process the hash after sections are exposed
+  setTimeout(() => {
+    if (window.location.hash) {
+      const targetId = window.location.hash.substring(1);
+      console.log('Processing hash after exposing sections:', targetId);
+      hashHandler.scrollToSection(targetId, true);
+    }
+  }, 800);
   
   // Check for saved theme preference or use default light theme
   const savedTheme = localStorage.getItem('asr-theme-mode') || 'light';
