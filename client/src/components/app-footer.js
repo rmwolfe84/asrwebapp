@@ -121,7 +121,7 @@ export class AppFooter extends LitElement {
           <div class="footer-grid">
             <div class="footer-about">
               <div class="footer-logo">
-                <img src="https://allsquareroofing.com/wp-content/uploads/2022/05/All-Square-Roofing-Final-Logo-01-2.png" alt="All Square Roofing Logo">
+                <img src="/assets/logo/ASR500x500Logo (1024 x 1024 px).png" alt="All Square Roofing Logo">
               </div>
               <p>We are dedicated to serving our customers with unmatched quality, service, and industry knowledge. No matter what kind of property you own, we're the team of professionals that will get your project all squared away.</p>
               <div class="social-links">

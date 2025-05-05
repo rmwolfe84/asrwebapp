@@ -189,7 +189,7 @@ export class AppHeader extends LitElement {
       <header>
         <div class="container header-container">
           <a href="#home" class="logo">
-            <img src="https://allsquareroofing.com/wp-content/uploads/2022/05/All-Square-Roofing-Final-Logo-01-2.png" alt="All Square Roofing Logo">
+            <img src="/assets/logo/ASR500x500Logo (1024 x 1024 px).png" alt="All Square Roofing Logo">
           </a>
           <nav>
             <ul class="${this.mobileMenuActive ? 'active' : ''}">

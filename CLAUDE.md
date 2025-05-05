@@ -1,5 +1,14 @@
 # All Square Roofing SEO based website
 
+embedding Social Media Content
+No iFrames - search engines cannot read them 
+  - this helps reduce bounce rates and encourages visitors to explore other pages on the website
+
+tools:  
+  - Curator
+  - Smash Balloon
+
+
 We are building a website for SE purposes
 
 installed dependecies:

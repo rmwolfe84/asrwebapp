@@ -209,7 +209,7 @@ export class HeroBanner extends LitElement {
           <div class="logo-container">
             <div class="logo-circle"></div>
             <div class="logo-inner">
-              <img src="https://allsquareroofing.com/wp-content/uploads/2022/05/All-Square-Roofing-Final-Logo-01-2.png" alt="All Square Roofing Logo">
+              <img src="/assets/logo/ASR500x500Logo (1024 x 1024 px).png" alt="All Square Roofing Logo">
             </div>
           </div>
           <div class="hero-content">
